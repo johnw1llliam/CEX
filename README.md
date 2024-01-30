@@ -14,3 +14,6 @@ Make sure you have the libraries needed installed
   <li>Scikit-learn</li>
   <li>Seaborn</li>
 </ul>
+
+
+![alt text](https://github.com/johnw1llliam/CEX/blob/main/Libraries.png?raw=true)
