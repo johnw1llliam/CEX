@@ -34,6 +34,18 @@ def col_category_graph(df):
         pyplot.show()
         print("\n")
 
+# Checking for outliers for all continous data
+def plot_boxplots(df):
+    numeric_columns = df.select_dtypes(include=['int64', 'float64'])
+    
+    for column in numeric_columns.columns:
+        plt.figure(figsize=(8, 6))
+        ax = df.boxplot(column=column)
+        ax.set_ylim(df[column].min() - 0.1 * abs(df[column].min()), df[column].max() + 0.1 * abs(df[column].max()))
+        plt.title(f'Boxplot of {column}')
+        plt.ylabel(column)
+        plt.show()
+
 # Checking for nulls (text)
 def null_check_text(df):
     null = df.isnull().sum()
@@ -386,41 +398,41 @@ def corr_matrix(df, target_col_name, annot):
         annot=True,
         annot_kws={"fontsize":8}
         )
-        plt.show()
+        pyplot.show()
     else:
         sns.heatmap(correlation_df.transpose(), cmap="YlGnBu")  
-        plt.show()
+        pyplot.show()
 
 # Creating histogram for checking skewness and outliers
 def skewness_outlier(df, cols):
     for col_name in cols:
-        plt.figure(figsize=(13,6))
+        pyplot.figure(figsize=(13,6))
 
-        plt.subplot(1,2,1)
+        pyplot.subplot(1,2,1)
         sns.histplot(df[col_name],color="purple",kde=True)
-        plt.title(f"{col_name} Distribution Plot",fontweight="black",pad=20,size=18)
+        pyplot.title(f"{col_name} Distribution Plot",fontweight="black",pad=20,size=18)
 
-        plt.subplot(1,2,2)
+        pyplot.subplot(1,2,2)
         sns.boxplot(df[col_name],color="purple")
-        plt.title(f"{col_name} Outliers Detection",fontweight="black",pad=20,size=18)
-        plt.tight_layout()
-        plt.show()
+        pyplot.title(f"{col_name} Outliers Detection",fontweight="black",pad=20,size=18)
+        pyplot.tight_layout()
+        pyplot.show()
         print("\n")
 
 # Creating bar plot to check skewness
 def skewness_bar(df, cols):
     skewness = df[cols].skew().sort_values()
 
-    plt.figure(figsize=(14,6))
+    pyplot.figure(figsize=(14,6))
     sns.barplot(x=skewness.index, y=skewness, palette=sns.color_palette("Reds",19))
     for i, v in enumerate(skewness):
-        plt.text(i, v, f"{v:.1f}", ha="center", va="bottom",size=15,fontweight="black")
+        pyplot.text(i, v, f"{v:.1f}", ha="center", va="bottom",size=15,fontweight="black")
 
-    plt.ylabel("Skewness")
-    plt.xlabel("Columns")
-    plt.xticks(rotation=90)
-    plt.title("Skewness of Numerical Columns",fontweight="black",size=20,pad=10)
-    plt.tight_layout()
-    plt.show()
+    pyplot.ylabel("Skewness")
+    pyplot.xlabel("Columns")
+    pyplot.xticks(rotation=90)
+    pyplot.title("Skewness of Numerical Columns",fontweight="black",size=20,pad=10)
+    pyplot.tight_layout()
+    pyplot.show()
 
 
